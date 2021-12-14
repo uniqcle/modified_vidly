@@ -53,20 +53,12 @@ class Movies extends Component {
     this.setState({ selectedSubtitle: e.target.value })
   }
 
-  handleSort = (sort) => {
-    const sortColumn = { ...this.state.sortColumn }
-    if (sortColumn.sort === sort)
-      sortColumn.order = (sortColumn.order === 'asc') ? 'desc' : 'asc'
-    else {
-      sortColumn.sort = sort;
-      sortColumn.order = 'asc'
-    }
-
+  handleSort = (sortColumn) => {
     this.setState({ sortColumn })
   }
 
   render() {
-    const { movies: allMovies, selectedGenre, pageSize, currentPage, allGenres, allSubtitles, selectedSubtitle, sortColumn } = this.state;
+    const { movies: allMovies, selectedGenre, pageSize, currentPage, allGenres, allSubtitles, sortColumn } = this.state;
     const { length: count } = this.state.movies;
 
     if (allMovies.length === 0) return <p>There are no movies </p>;
@@ -103,8 +95,10 @@ class Movies extends Component {
               <MoviesTable
                 movies={movies}
                 onDelete={this.handleDelete}
+                onSort={this.handleSort}
                 onLike={this.handleLike}
                 onSort={this.handleSort}
+                sortColumn={sortColumn}
               />
 
               <Pagination
