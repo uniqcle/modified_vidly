@@ -9,8 +9,8 @@ class MoviesTable extends Component {
         { sort: "genre", label: "Genre" },
         { sort: "numberInStock", label: "Stock" },
         { sort: "dailyRentalRate", label: "Rate" },
-        {},
-        {}
+        { key: "like" },
+        { key: "delete" }
     ]
 
 

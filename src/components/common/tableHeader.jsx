@@ -16,20 +16,17 @@ class TableHeader extends Component {
     }
 
     render() {
+
+        const { columns } = this.props;
         return (
 
             <>
 
                 <thead className="thead-dark">
                     <tr>
-                        { }
-
-                        <th onClick={() => this.raiseSort("title")}>Title</th>
-                        <th onClick={() => this.raiseSort("genre")}>Genre</th>
-                        <th onClick={() => this.raiseSort("numberInStock")}>Stock</th>
-                        <th onClick={() => this.raiseSort("dailyRentalRate")}>Rate</th>
-                        <th></th>
-                        <th></th>
+                        {columns.map(column =>
+                            <th key={column.key || column.sort} onClick={() => this.raiseSort(column.sort)}>{column.label}</th>
+                        )}
                     </tr>
                 </thead>
 
