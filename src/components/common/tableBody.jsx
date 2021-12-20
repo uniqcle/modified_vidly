@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import _ from "lodash";
+import { Link } from 'react-router-dom'
 
 export default class TableBody extends Component {
     renderCell(item, column) {
