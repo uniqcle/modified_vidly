@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const Input = ({ name, label, value, onChange, error }) => {
+const Input = ({ name, label, error, ...rest }) => {
 
     return (
         <>
@@ -8,12 +8,14 @@ const Input = ({ name, label, value, onChange, error }) => {
                 <label htmlFor={name} className="form-label">{label}</label>
                 <input
                     // autoFocus ref={this.username}
-                    value={value}
-                    onChange={onChange}
-                    className="form-control"
+                    {...rest}
+                    // type={type}
+                    // value={value}
+                    // onChange={onChange}
                     id={name}
-                    type="text"
                     name={name}
+                    className="form-control"
+
                 />
                 {error && <div className="alert alert-danger">{error}</div>}
 
