@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const Input = ({ name, label, value, onChange }) => {
+const Input = ({ name, label, value, onChange, error }) => {
 
     return (
         <>
@@ -15,6 +15,7 @@ const Input = ({ name, label, value, onChange }) => {
                     type="text"
                     name={name}
                 />
+                {error && <div className="alert alert-danger">{error}</div>}
 
             </div>
         </>
