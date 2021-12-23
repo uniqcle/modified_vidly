@@ -7,6 +7,7 @@ import { paginate } from "./utils/paginate";
 import ListGroup from "./common/listGroup";
 import Subtitle from "./common/subtitle";
 import MoviesTable from "./moviesTable";
+import { Link } from 'react-router-dom'
 import _ from 'lodash'
 
 class Movies extends Component {
@@ -98,6 +99,9 @@ class Movies extends Component {
 
             </div>
             <div className="col-md-9">
+
+              <Link to="/movies/new" class="btn btn-primary" style={{ marginBottom: 20 }}>New Movie</Link>
+
               <p>There are {totalCount} movies </p>
 
               <MoviesTable
