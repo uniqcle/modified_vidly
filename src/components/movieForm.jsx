@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Form from './common/form'
-import Joi from 'joi-browser'
-import { getMovie, saveMovie } from '../services/fakeMovieService'
-import { getGenres } from '../services/fakeGenreService'
-
+import { getMovie, saveMovie } from '../services/fakeMovieService';
+import { getGenres } from '../services/fakeGenreService';
+import Joi from 'joi-browser';
 
 class MovieForm extends Form {
     state = {
@@ -17,6 +16,7 @@ class MovieForm extends Form {
         errors: {}
     }
 
+
     schema = {
         _id: Joi.string(),
         title: Joi.string().required().label("Title"),
@@ -25,14 +25,16 @@ class MovieForm extends Form {
         dailyRentalRate: Joi.number().required().min(0).max(100).label("Daily Rental Rate")
     }
 
+
     componentDidMount() {
         const genres = getGenres();
         this.setState({ genres })
 
-        const movieId = this.props.match.params.id;
-        if (movieId === "new") return;
 
-        const movie = getMovie(movieId);
+        const movieId = this.props.match.params.id;
+        if (movieId === 'new') return;
+
+        const movie = getMovie(movieId)
         if (!movie) return this.props.history.replace("/not-found")
 
         this.setState({ data: this.mapToViewModel(movie) })
@@ -51,29 +53,25 @@ class MovieForm extends Form {
 
 
     doSubmit = () => {
-        saveMovie(this.state.data);
+        saveMovie(this.state.data)
 
         this.props.history.push("/movies")
     }
 
-
-
     render() {
+        return (
+            <>
+                <h1>Movie Form</h1>
+                <form onSubmit={this.handleSubmit} >
+                    {this.renderInput("title", "Title")}
+                    {this.renderInput("numberInStock", "Number in Stock")}
+                    {this.renderInput("dailyRentalRate", "Daily Rental Rate")}
+                    {this.renderSelect("genreId", "Genre", this.state.genres)}
 
-        return (<>
-            <h2>Movie Form</h2>
-            <form onSubmit={this.handleSubmit}>
-                {this.renderInput("title", "Title")}
-                {this.renderSelect("genreId", "Genre", this.state.genres)}
-                {this.renderInput("numberInStock", "Number in Stock", "number")}
-                {this.renderInput("dailyRentalRate", "Daily Rental Rate", "number")}
-
-                {this.renderButton("Save")}
-            </form>
-
-
-        </>);
+                    {this.renderButton("Save")}
+                </form>
+            </>)
     }
 }
 
-export default MovieForm;
+export default MovieForm; 
