@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { getGenres } from "../services/fakeGenreService";
-import { getMovies } from "../services/fakeMovieService";
-import { getSubtitles } from '../services/fakeSubtitleService'
+import { getGenres } from "./services/genreService";
+import { getMovies, deleteMovie } from "./services/movieService";
+import { getSubtitles } from './services/fakeSubtitleService'
 import Pagination from "./common/pagination";
 import { paginate } from "./utils/paginate";
 import ListGroup from "./common/listGroup";
@@ -10,6 +10,7 @@ import MoviesTable from "./moviesTable";
 import SearchBox from "./searchBox";
 import { Link } from 'react-router-dom'
 import _ from 'lodash'
+import { toast } from 'react-toastify'
 
 class Movies extends Component {
   state = {
@@ -23,10 +24,13 @@ class Movies extends Component {
     selectedGenre: null
   };
 
-  componentDidMount() {
-    const allGenres = [{ _id: "", name: 'All genres' }, ...getGenres()]
+  async componentDidMount() {
+    const { data } = await getGenres();
+    const allGenres = [{ _id: "", name: 'All genres' }, ...data]
     const allSubtitles = [...getSubtitles()]
-    this.setState({ movies: getMovies(), allGenres, allSubtitles });
+
+    const { data: movies } = await getMovies();
+    this.setState({ movies, allGenres, allSubtitles });
   }
 
   handleLike = (movie) => {
@@ -37,11 +41,22 @@ class Movies extends Component {
     this.setState({ movies });
   };
 
-  handleDelete = (movie) => {
-    let movies = this.state.movies.filter((item) => {
+  handleDelete = async (movie) => {
+    const originalMovies = this.state.movies;
+
+    let movies = originalMovies.filter((item) => {
       return item._id !== movie._id;
     });
     this.setState({ movies });
+
+    try {
+      await deleteMovie(movie._id);
+    } catch (ex) {
+      if (ex.response && ex.response.status === 404)
+        toast.error('This movie has already been deleted')
+      this.setState({ movies: originalMovies })
+    }
+
   };
 
   handlePageChange = (page) => {

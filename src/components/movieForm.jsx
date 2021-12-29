@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Form from './common/form'
-import { getMovie, saveMovie } from '../services/fakeMovieService';
-import { getGenres } from '../services/fakeGenreService';
+import { getMovie, saveMovie } from './services/fakeMovieService';
+import { getGenres } from './services/genreService';
 import Joi from 'joi-browser';
 
 class MovieForm extends Form {
@@ -26,8 +26,8 @@ class MovieForm extends Form {
     }
 
 
-    componentDidMount() {
-        const genres = getGenres();
+    async componentDidMount() {
+        const { data: genres } = await getGenres();
         this.setState({ genres })
 
 
