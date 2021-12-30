@@ -25,7 +25,9 @@ class RegisterForm extends Form {
         // call the server
         //const username = this.username.current.value;
         try {
-            await userService.register(this.state.data)
+            const response = await userService.register(this.state.data)
+            console.log(response)
+
         } catch (ex) {
             if (ex.response && ex.response.status === 400) {
                 const errors = { ...this.state.errors }
