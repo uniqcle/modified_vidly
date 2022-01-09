@@ -27,7 +27,7 @@ class RegisterForm extends Form {
 
       //console.log(response.headers);
       localStorage.setItem("token", response.headers["x-auth-token"]);
-      this.props.history.push("/");
+      // this.props.history.push("/");
       window.location = "/";
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
