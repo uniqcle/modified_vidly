@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Form from './common/form'
 import Joi, { errors } from 'joi-browser'
-import { login } from './services/authService'
+import auth from './services/authService'
 
 class LoginForm extends Form {
 
@@ -30,13 +30,10 @@ class LoginForm extends Form {
         // call the server
         //const username = this.username.current.value;
         try {
-          const { data } = this.state;
-          const { data: jwt } = await login(data.username, data.password);
-
-          localStorage.setItem("token", jwt);
-
-          // this.props.history.push("/");
-          window.location = "/";
+            const { data } = this.state;
+            await auth.login(data.username, data.password);
+            // this.props.history.push("/");
+            window.location = "/";
         } catch (ex) {
             if (ex.response && ex.response.status === 400) {
                 const errors = { ...this.state.errors }

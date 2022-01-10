@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import jwtDecode from "jwt-decode";
 import "./App.css";
 import Movies from "./components/movies";
 import MovieForm from "./components/movieForm";
@@ -8,6 +7,7 @@ import Rentals from "./components/rentals";
 import Navbar from "./components/navbar";
 import LoginForm from "./components/loginForm";
 import Logout from "./components/logout";
+import auth from './components/services/authService'
 import RegisterForm from "./components/registerForm";
 import { Switch, Route, Redirect } from "react-router-dom";
 import NotFound from "./components/notFound";
@@ -18,11 +18,8 @@ class App extends Component {
   state = {};
 
   componentDidMount() {
-    try {
-      const jwt = localStorage.getItem("token");
-      const user = jwtDecode(jwt);
-      this.setState({ user });
-    } catch (ex) {}
+    const user = auth.getCurrentUser();
+    this.setState({ user })
   }
 
   render() {
