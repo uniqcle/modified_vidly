@@ -8,7 +8,7 @@ class Logout extends Component {
   }
 
   render() {
-    return <>return null;</>;
+    return null;
   }
 }
 
