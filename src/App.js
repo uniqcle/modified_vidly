@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ProtectedRoute from "./components/common/protectedRoute";
 import "./App.css";
 import Movies from "./components/movies";
 import MovieForm from "./components/movieForm";
@@ -37,7 +38,6 @@ class App extends Component {
             <Route path="/register" component={RegisterForm} />
 
             <Route
-
               path="/movies/:id"
               render={props => {
                 if (!user) return <Redirect to="/login" />

@@ -33,7 +33,7 @@ class LoginForm extends Form {
             const { data } = this.state;
             await auth.login(data.username, data.password);
             // this.props.history.push("/");
-            window.location = "/";
+            window.location = "/movies";
         } catch (ex) {
             if (ex.response && ex.response.status === 400) {
                 const errors = { ...this.state.errors }
