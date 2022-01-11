@@ -1,6 +1,6 @@
 import React from "react";
 import Form from "./common/form";
-import Joi, { errors } from "joi-browser";
+import Joi from "joi-browser";
 import * as userService from "./services/userService";
 import auth from './services/authService'
 

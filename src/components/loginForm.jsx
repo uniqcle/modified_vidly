@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Form from './common/form'
-import Joi, { errors } from 'joi-browser'
+import Joi from 'joi-browser'
 import auth from './services/authService'
 
 class LoginForm extends Form {

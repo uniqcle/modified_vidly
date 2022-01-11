@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ProtectedRoute from "./components/common/protectedRoute";
+//import ProtectedRoute from "./components/common/protectedRoute";
 import "./App.css";
 import Movies from "./components/movies";
 import MovieForm from "./components/movieForm";
