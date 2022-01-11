@@ -118,6 +118,8 @@ class Movies extends Component {
     const { movies: allMovies, selectedGenre, pageSize, currentPage, allGenres, allSubtitles, sortColumn, searchQuery } = this.state;
     const { length: count } = this.state.movies;
 
+    const { user } = this.props;
+
     if (allMovies.length === 0) return <p>There are no movies </p>;
 
     const { totalCount, data: movies } = this.getPagedData();
@@ -141,8 +143,9 @@ class Movies extends Component {
             </div>
             <div className="col-md-9">
 
-              <Link to="/movies/new" class="btn btn-primary" style={{ marginBottom: 20 }}>New Movie</Link>
-
+              {user &&
+                (<Link to="/movies/new" class="btn btn-primary" style={{ marginBottom: 20 }}>New Movie</Link>)
+              }
               <p>There are {totalCount} movies </p>
 
 
