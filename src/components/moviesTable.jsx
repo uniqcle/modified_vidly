@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import auth from './services/authService'
 import Table from "./common/table";
 import Likes from "./common/like";
 import { Link } from 'react-router-dom'
@@ -15,19 +16,30 @@ export default class MoviesTable extends Component {
             content: (movie) => (
                 <Likes liked={movie.liked} onClick={() => this.props.onLike(movie)} />
             ),
-        },
-        {
-            key: "rate",
-            content: (movie) => (
-                <button
-                    onClick={() => this.props.onDelete(movie)}
-                    className="btn btn-danger btn-sm"
-                >
-                    Delete
-                </button>
-            ),
-        },
+        }
+
     ];
+
+
+    deleteColumn = {
+        key: "rate",
+        content: (movie) => (
+            <button
+                onClick={() => this.props.onDelete(movie)}
+                className="btn btn-danger btn-sm"
+            >
+                Delete
+            </button>
+        ),
+    }
+
+
+    constructor() {
+        super()
+        const user = auth.getCurrentUser();
+        if (user && user.isAdmin)
+            this.columns.push(this.deleteColumn)
+    }
 
     render() {
         const { movies, sortColumn, onSort } = this.props;
